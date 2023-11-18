@@ -22,10 +22,10 @@ router.get('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
   const {cpf, senha} = req.body
   const resonse = await UserModel.loginUser({cpf, senha})
   console.log(resonse)
-  if(!resonse.status) {
-    res.json({status: 200, token: JWT.createJWT(resonse)})
-  } else {
+  if(resonse.status === 401) {
     res.json({status: 400, message: "Login errado"})
+  } else {
+    res.json({status: 200, token: JWT.createJWT(resonse)})
   }
 })
 

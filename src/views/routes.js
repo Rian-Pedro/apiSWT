@@ -18,7 +18,7 @@ router.post('/registerUser', async (req,res) => {
 })
 
 // 2.2 - Rota de login do usuário
-router.get('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
+router.post('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
   const {cpf, senha} = req.body
   console.log(cpf, senha)
   const resonse = await UserModel.loginUser({cpf, senha})

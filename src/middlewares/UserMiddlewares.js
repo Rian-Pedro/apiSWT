@@ -1,5 +1,6 @@
 const JWT = require('jsonwebtoken')
 
+// 1 - Verficicação de token de usuário
 class UserMiddlewares {
   static verifyJWT(req, res, next) {
     if(req.body.token) {

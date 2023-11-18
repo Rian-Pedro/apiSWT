@@ -20,13 +20,13 @@ router.post('/registerUser', async (req,res) => {
 // 2.2 - Rota de login do usuário
 router.get('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
   const {cpf, senha} = req.body
+  console.log(cpf, senha)
   const resonse = await UserModel.loginUser({cpf, senha})
   console.log(resonse)
   if(resonse.status === 401) {
     res.json({status: 400, message: "Login errado"})
-  } else {
-    res.json({status: 200, token: JWT.createJWT(resonse)})
   }
+    res.json({status: 200, token: JWT.createJWT(resonse.data || "")})
 })
 
 // 3 - Exportação do modulo

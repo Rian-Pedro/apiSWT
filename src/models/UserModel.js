@@ -68,7 +68,7 @@
 
       const result = hashCompare(dataUser.senha, user.senha)
       if(result) {
-        return user.toObject()
+        return {status: 200, data: user.toObject()}
       } else {
         return 'não passou'
       }

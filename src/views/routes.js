@@ -1,13 +1,16 @@
-// 1 - Importações
 // 1.1 - Importações de middlewares
 const UserMiddlewares = require("../middlewares/UserMiddlewares");
+const uploadUserImage = require("../utils/userImageMulter")
+const path = require("path")
 
 // 1.2 - Importações de modelos para banco de dados
 const UserModel = require("../models/UserModel");
+const OSmodel = require("../models/OSmodel")
 
 // 1.3 - Importação do que é necessario para criar uma rota
 const router = require("express").Router();
-const JWT = require('../utils/JWT')
+const JWT = require('../utils/JWT');
+const uploadOSimage = require("../utils/osImageMulter");
  
 // 2 - Rotas
 // 2.1 - Rota de registro de usuário
@@ -27,6 +30,30 @@ router.post('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
     res.json({status: 400, message: "Login errado"})
   }
     res.json({status: 200, token: JWT.createJWT(resonse.data || "")})
+})
+
+// 2.3 - Rota de Inserir imagem de usuário
+router.post('/imageUser', uploadUserImage.single("image"), async (req, res) => {
+  await UserModel.updateImg(req.query.userId, req.body.url)
+})
+
+// 2.4 - Rota de Inserir OS
+router.post('/newOS', uploadOSimage.single("problemImage"), async (req, res) => {
+  const os = new OSmodel(req.body)
+  const result = await os.createOS()
+
+  res.json(result)
+  // console.log(req.body)
+})
+
+router.get("/getOS", async (req, res) => {
+  const result = await OSmodel.getOS(req.query.userId)
+  res.json(result)
+})
+
+router.get("/getImg", (req, res) => {
+  const filePath = path.join(__dirname, "../", "../", req.query.imgUrl)
+  res.sendFile(filePath)
 })
 
 // 3 - Exportação do modulo

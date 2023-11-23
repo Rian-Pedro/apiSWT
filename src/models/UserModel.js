@@ -13,6 +13,7 @@
     municipio: String,
     telefone: String,
     senha: String,
+    userImgUrl: String
   })
 
   // 2 - Expecificando como os dados devem ficar ao virarem objetos
@@ -41,6 +42,12 @@
       this.body = body
       this.user
       this.error = []
+    }
+
+    static async updateImg (userId, url) {
+      
+      console.log(userId, url)
+      await User.updateOne({_id: userId}, {$set: {userImgUrl: url}})
     }
 
     validate() {
@@ -81,10 +88,11 @@
 
       this.hashPass()
 
-      const newUser = new User(this.body)
+      const userData = {...this.body, userImgUrl: ""}
+      const newUser = new User(userData)
 
       const user = await newUser.save()
-      const {senha, ...resto} = this.body
+      const {senha, ...resto} = userData
       resto.id = user.id
       return resto
 

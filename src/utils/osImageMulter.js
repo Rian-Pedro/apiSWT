@@ -7,7 +7,7 @@ moment.locale("pt")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const pathTeste = "./uploads/OS-images"
+    const pathTeste = "./uploads/OS-images/"
     cb(null, path.dirname(pathTeste))
   },
   filename: (req, file, cb) => {

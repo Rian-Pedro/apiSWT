@@ -1,11 +1,14 @@
 const multer = require("multer")
 
+const path = require("path")
+
 const moment = require("moment")
 moment.locale("pt")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/OS-images")
+    const pathTeste = "./uploads/OS-images"
+    cb(null, path.dirname(pathTeste))
   },
   filename: (req, file, cb) => {
     const today = moment()

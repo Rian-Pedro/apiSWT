@@ -6,10 +6,7 @@ const OSschema = new mongoose.Schema({
   userId: String,
   type: String,
   desc: String,
-  status: {
-    type: Number,
-    default: 1
-  },
+
   imgUrl: String,
   dt_post: String,
   time_post: String,

@@ -2,7 +2,7 @@
 const UserMiddlewares = require("../middlewares/UserMiddlewares");
 const uploadUserImage = require("../utils/userImageMulter")
 const path = require("path")
-
+ 
 // 1.2 - Importações de modelos para banco de dados
 const UserModel = require("../models/UserModel");
 const OSmodel = require("../models/OSmodel")

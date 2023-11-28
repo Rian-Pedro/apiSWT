@@ -11,17 +11,18 @@ const OSmodel = require("../models/OSmodel")
 const router = require("express").Router();
 const JWT = require('../utils/JWT');
 const uploadOSimage = require("../utils/osImageMulter");
+const AuthMiddleware = require("../middlewares/AuthMiddleware");
  
 // 2 - Rotas
 // 2.1 - Rota de registro de usuário
-router.post('/registerUser', async (req,res) => {
+router.post('/registerUser', AuthMiddleware, async (req,res) => {
   const user = new UserModel(req.body)
   const userInfo = await user.registerUser()
   res.json({status: 201})
 })
 
 // 2.2 - Rota de login do usuário
-router.post('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
+router.post('/login', AuthMiddleware, UserMiddlewares.verifyJWT ,async (req, res) => {
   const {cpf, senha} = req.body
   console.log(cpf, senha)
   const resonse = await UserModel.loginUser({cpf, senha})
@@ -33,12 +34,12 @@ router.post('/login', UserMiddlewares.verifyJWT ,async (req, res) => {
 })
 
 // 2.3 - Rota de Inserir imagem de usuário
-router.post('/imageUser', uploadUserImage.single("image"), async (req, res) => {
+router.post('/imageUser', AuthMiddleware, uploadUserImage.single("image"), async (req, res) => {
   await UserModel.updateImg(req.query.userId, req.body.url)
 })
 
 // 2.4 - Rota de Inserir OS
-router.post('/newOS', uploadOSimage.single("problemImage"), async (req, res) => {
+router.post('/newOS', AuthMiddleware, uploadOSimage.single("problemImage"), async (req, res) => {
   const os = new OSmodel(req.body)
   const result = await os.createOS()
 
@@ -46,12 +47,12 @@ router.post('/newOS', uploadOSimage.single("problemImage"), async (req, res) => 
   // console.log(req.body)
 })
 
-router.get("/getOS", async (req, res) => {
+router.get("/getOS", AuthMiddleware, async (req, res) => {
   const result = await OSmodel.getOS(req.query.userId)
   res.json(result)
 })
 
-router.get("/getImg", (req, res) => {
+router.get("/getImg", AuthMiddleware, (req, res) => {
   const filePath = path.join(__dirname, "../", "../", req.query.imgUrl)
   res.sendFile(filePath)
 })

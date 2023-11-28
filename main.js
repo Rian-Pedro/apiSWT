@@ -1,6 +1,8 @@
 // 3MAShHzrsx1e67U1
 // sw9393385
 
+require('dotenv').config()
+
 // 1 - Importações
 // 1.1 - Importações de bibliotecas
 const express = require("express")
@@ -25,7 +27,7 @@ app.use(cors())
 app.use(routes)
 
 // 3 - conexão com banco de dados e inicilizador do servidor
-mongoose.connect(`mongodb+srv://sw9393385:3MAShHzrsx1e67U1@swt.prdofn1.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://sw9393385:${process.env.MONGOPASS}@swt.prdofn1.mongodb.net/?retryWrites=true&w=majority`)
   .then(() => {
     app.listen(3000, () => {
       console.log("http://localhost:3000");

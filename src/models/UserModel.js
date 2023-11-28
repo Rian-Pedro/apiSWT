@@ -1,8 +1,6 @@
   const validator = require('validator')
   const mongoose = require('mongoose')
   const bcrypt = require('bcrypt')
-  const res = require('express/lib/response')
-
 
   // 1 - Criador do Schema do modelo(os tipos dos dados a serem recebidos)
   const UserSchema = new mongoose.Schema({

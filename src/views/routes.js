@@ -53,7 +53,7 @@ router.get("/getOS", async (req, res) => {
 })
 
 router.get("/getImg", AuthMiddleware, (req, res) => {
-  const filePath = req.query.imgUrl
+  const filePath = path.resolve(req.query.imgUrl)
   res.sendFile(filePath)
 })
 

@@ -5,10 +5,15 @@ const path = require("path")
 const moment = require("moment")
 moment.locale("pt")
 
+const pathTeste = path.join(__dirname, 'uploads', 'OS-images');
+
+if (!fs.existsSync(pathTeste)) {
+  fs.mkdirSync(pathTeste, { recursive: true });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const pathTeste = "./uploads/OS-images/"
-    cb(null, path.resolve(pathTeste))
+    cb(null, pathTeste)
   },
   filename: (req, file, cb) => {
     const today = moment()

@@ -47,7 +47,7 @@ router.post('/newOS', AuthMiddleware, uploadOSimage.single("problemImage"), asyn
   // console.log(req.body)
 })
 
-router.get("/getOS", AuthMiddleware, async (req, res) => {
+router.get("/getOS", async (req, res) => {
   const result = await OSmodel.getOS(req.query.userId)
   res.json(result)
 })

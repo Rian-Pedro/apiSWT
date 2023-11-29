@@ -1,6 +1,7 @@
 const multer = require("multer")
 
 const path = require("path")
+const fs = require("fs")
 
 const moment = require("moment")
 moment.locale("pt")
@@ -8,6 +9,7 @@ moment.locale("pt")
 const pathTeste = path.join(__dirname, 'uploads', 'OS-images');
 
 if (!fs.existsSync(pathTeste)) {
+  console.log("aqui")
   fs.mkdirSync(pathTeste, { recursive: true });
 }
 

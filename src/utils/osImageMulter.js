@@ -7,7 +7,7 @@ const moment = require("moment")
 moment.locale("pt")
 
 const pathTeste = path.join(__dirname, 'uploads', 'OS-images');
-
+console.log(pathTeste, 'local')
 if (!fs.existsSync(pathTeste)) {
   console.log("aqui")
   fs.mkdirSync(pathTeste, { recursive: true });

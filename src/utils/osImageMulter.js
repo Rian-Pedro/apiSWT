@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const today = moment()
     const fileName = today.format("DD@MM@YY") + "-" + today.format("HH@mm") + "-" + file.originalname
-    req.body.imgUrl = path.join(pathTeste, fileName)
+    req.body.imgUrl = `./uploads/OS-images/${fileName}`
     cb(null, fileName)
   }
 })
